@@ -10,6 +10,7 @@ dependencies:
   url_launcher: any
   path_provider: any
   shared_preferences: any
+  flutter_bloc: any
   rx_command: 4.0.0
   rx_widgets: any
   get_it: any
@@ -18,6 +19,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   mockito: any
+  test: any
 
 flutter:
   uses-material-design: true

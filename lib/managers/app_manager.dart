@@ -29,14 +29,10 @@ abstract class AppManager {
   DateTime selectedDate;
 
   Observable<CommandResult<List<Event>>> get inTheaterEvents;
-
   Observable<CommandResult<List<Event>>> get upcommingEvents;
-
   Observable<CommandResult<List<Show>>> get showsToDisplay;
 
-
   Future init();
-
 }
 
 class AppManagerImplementation implements AppManager {
@@ -150,7 +146,7 @@ class AppManagerImplementation implements AppManager {
 
     updateSearchStringCommand = RxCommand.createSync((s) => s);
 
-    updateEventsCommand.results.listen((data) => print("Has data: ${data.hasData}  has error:   ${data.hasError}, ${data.isExecuting}"));
+    updateEventsCommand.results.listen((data) => print("Has data [${data.hasData}] error [${data.hasError}] executing [${data.isExecuting}]"));
   }
 
   Future init() async {

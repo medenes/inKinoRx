@@ -9,7 +9,6 @@ import 'package:inkinoRx/widgets/showtimes/showtimes_page.dart';
 import 'package:inkinoRx/widgets/theater_list/inkino_drawer_header.dart';
 import 'package:inkinoRx/widgets/theater_list/theater_list.dart';
 
-
 class MainPage extends StatefulWidget {
   @override
   _MainPageState createState() => new _MainPageState();
@@ -17,25 +16,22 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage>
     with SingleTickerProviderStateMixin {
-
-      
   static final GlobalKey<ScaffoldState> scaffoldKey =
       new GlobalKey<ScaffoldState>();
 
-  TabController _controller;
+  TabController _tabController;
   TextEditingController _searchQuery;
   bool _isSearching = false;
 
   @override
   void initState() {
     super.initState();
-    _controller = new TabController(length: 3, vsync: this);
+    _tabController = new TabController(length: 3, vsync: this);
     _searchQuery = new TextEditingController();
   }
 
   void _startSearch() {
-    ModalRoute
-        .of(context)
+    ModalRoute.of(context)
         .addLocalHistoryEntry(new LocalHistoryEntry(onRemove: _stopSearching));
 
     setState(() {
@@ -62,9 +58,9 @@ class _MainPageState extends State<MainPage>
     var horizontalTitleAlignment =
         Platform.isIOS ? CrossAxisAlignment.center : CrossAxisAlignment.start;
 
-      var subtitle = new StreamBuilder<Theater>(stream: sl.get<AppManager>().changedCurrentTheatherCommand,
-                               builder: (BuildContext context, AsyncSnapshot<Theater> currentTheater) 
-        {
+    var subtitle = new StreamBuilder<Theater>(
+      stream: sl.get<AppManager>().changedCurrentTheatherCommand,
+      builder: (BuildContext context, AsyncSnapshot<Theater> currentTheater) {
         return new Text(
           currentTheater.hasData ? currentTheater.data?.name ?? '' : "",
           style: new TextStyle(
@@ -106,7 +102,7 @@ class _MainPageState extends State<MainPage>
   }
 
   void _updateSearchQuery(String newQuery) {
-      sl.get<AppManager>().updateSearchStringCommand(newQuery);    
+    sl.get<AppManager>().updateSearchStringCommand(newQuery);
   }
 
   List<Widget> _buildActions() {
@@ -144,7 +140,7 @@ class _MainPageState extends State<MainPage>
         title: _isSearching ? _buildSearchField() : _buildTitle(context),
         actions: _buildActions(),
         bottom: new TabBar(
-          controller: _controller,
+          controller: _tabController,
           isScrollable: true,
           tabs: <Tab>[
             new Tab(text: 'Now in theater'),
@@ -160,7 +156,7 @@ class _MainPageState extends State<MainPage>
         ),
       ),
       body: new TabBarView(
-        controller: _controller,
+        controller: _tabController,
         children: <Widget>[
           new EventsPage(EvenListTypes.InTheater),
           new ShowtimesPage(),

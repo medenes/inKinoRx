@@ -66,12 +66,11 @@ class FinnKinoServiceImplementation implements FinnKinoService {
   @override
   Future<List<Show>> getShows(date, Theater theater) async 
                                 {
-                                  var now = Clock.getCurrentTime();
-                                  date == date ?? now;
+                                  date == date ?? Clock.getCurrentTime();
                                   var shows = await _getSchedule(theater, date);
   
                                     // Return only show times that haven't started yet.
-                                  return shows.where((show) => show.start.isAfter(now)).toList();
+                                  return shows.where((show) => show.start.isAfter(DateTime.now())).toList();
                                 }
 
 }
